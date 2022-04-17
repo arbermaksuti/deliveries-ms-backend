@@ -1,14 +1,17 @@
-import express from 'express';
-import {Request, Response} from 'express'
+import express from "express";
 const app = express();
 
-const port:number = 3000;
+import userRoutes from "./routes/users";
+import authRoutes from "./routes/auth";
+import errorHandler from "./utils/middlewares/errorHandler";
+import genericErrorHandler from "./utils/middlewares/genericErrorHandler";
 
-app.get('/:id', (req: Request<{id: string}, undefined, undefined, {name: string}> , res: Response) => {
-  const name: string = req.query.name;
-  const id: string = req.params.id;
-  console.log('hello world', name, id);
-  res.status(200).json({success: true});
-});
+app.use(express.json());
 
-app.listen(port, () => console.log(`App started in development mode at port: ${port}`));
+app.use("/users", userRoutes);
+app.use("/auth", authRoutes);
+
+app.use(errorHandler);
+app.use(genericErrorHandler);
+
+export default app;
