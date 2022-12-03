@@ -14,7 +14,11 @@ const UserSchema = new mongoose.Schema({
   phoneNumber: String,
   role: {
     type: Number,
-    enum: [0, 1, 2, 3, 4], // 1 -> admin, 2 -> sales manager, 3 -> kitchen, 4 -> postman
+    enum: [0, 1, 2, 3, 4], // 0 -> super admin, 1 -> admin, 2 -> sales manager, 3 -> kitchen, 4 -> postman
+  },
+  confirmEmail: {
+    expiresIn: Date,
+    digits: String
   },
   ...Base,
 });

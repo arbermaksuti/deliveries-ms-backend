@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node src/server.ts",
-    "dev": "npx nodemon src/server.ts"
+    "start": "npx --inspect ts-node src/server.ts",
+    "dev": "npx --inspect nodemon src/server.ts"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/arbermaksuti/deliveries-ms-backend#readme",
   "devDependencies": {
+    "nodemon": "^2.0.20",
     "typescript": "^4.6.3"
   },
   "dependencies": {

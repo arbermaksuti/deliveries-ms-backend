@@ -23,8 +23,7 @@ const login = asyncHandler(
       return;
     }
 
-    const token: string = jwt.sign({ _id: user._id }, "1jh3123gqhjsdghqjg12h3g12##!!", { expiresIn: "7d" });
-    console.log(token);
+    const token: string = jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, { expiresIn: "1d" });
     response.status(200).json({ token });
   }
 );

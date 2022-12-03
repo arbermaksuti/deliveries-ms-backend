@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { IResponseMessage } from "../models/shared";
 
 import User from "../models/User";
 import { ICreateUserDTO, IUser } from "../models/User/types";
@@ -11,23 +12,17 @@ import asyncHandler from "../utils/middlewares/asyncHandler";
  * @access PRIVATE, only admin and super admin.
  */
 const create = asyncHandler(
-  async (request: Request<null, string, ICreateUserDTO, null>, response: Response<string>, next: NextFunction) => {
+  async (request: Request<null, string, ICreateUserDTO, null>, response: Response<IResponseMessage>, next: NextFunction) => {
     const user = request.body;
-
-    if (user.role === 0 || user.role === 1 || ![2, 3, 4].includes(user.role)) {
-      next(new ApiError("Internal Error", 500));
-      return;
-    }
 
     const userExists = await User.findOne({ email: user.email });
     if (userExists) {
-      console.log("here");
       next(new ApiError("User already exists", 500));
       return;
     }
 
     await User.create(user);
-    response.send("User created successfully");
+    response.json({ message: "User created successfully." });
   }
 );
 
